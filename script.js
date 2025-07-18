@@ -31,6 +31,15 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+function toggleRules() {
+    const rulesContainer = document.getElementById('rules-container');
+    if (rulesContainer.style.display === 'none') {
+        rulesContainer.style.display = 'block';
+    } else {
+        rulesContainer.style.display = 'none';
+    }
+}
+
 function highlightLetters(userInput) {
     const sentenceElem = document.getElementById('sentence');
     const fullSentence = sentenceElem.textContent.split(': ')[1];
