@@ -124,6 +124,10 @@ function closeModal() {
 
 function revealAnswer() {
     const modalMessage = document.getElementById('modal-message');
+    const revealButton = document.querySelector('button[onclick="revealAnswer()"]');
     modalMessage.textContent += ` The answer was: ${answer}.`;
     console.log('Answer revealed: ', answer);
+    
+    // Disable the button to prevent multiple clicks
+    revealButton.disabled = true;
 }
