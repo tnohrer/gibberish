@@ -93,16 +93,16 @@ function submitGuess() {
     }
 
     if (userInput === answer) {
-        openModal(`Congratulations! You've guessed the correct word in ${5 - attempts} attempt(s). You speak Gibberish fluently!`);
+        openModal(`Congratulations! You've guessed the correct word in ${5 - attempts + 1} attempt(s). You speak Gibberish fluently!`);
+} else {
+    attempts--;
+    if (attempts > 0) {
+        feedbackElement.textContent = `Incorrect. You have ${attempts} attempts left.`;
+        console.log('Incorrect guess. Attempts left:', attempts);
     } else {
-        attempts--;
-        if (attempts > 0) {
-            feedbackElement.textContent = `Incorrect. You have ${attempts} attempts left.`;
-            console.log('Incorrect guess. Attempts left:', attempts);
-        } else {
-            openModal("Better luck next time! Would you like to know the correct answer?");
-        }
+        openModal("Thanks for playing! Would you like to know the correct answer?");
     }
+}
 
     document.getElementById('user-input').value = "";
 }
