@@ -9,7 +9,62 @@
     <link
   rel="icon"
   href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🫠</text></svg>"
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gibberish</title>
+ 
+    <link rel="stylesheet" href="styles.css">
+    <link
+  rel="icon"
+  href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🫠</text></svg>"
   
+/>
+
+   <!-- Moment.js -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+   <!-- Moment Timezone -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data.min.js"></script>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Gibberish</h1>
+           <p>New gibberish every day!</p>
+        <button onclick="toggleRules()">Rules</button>
+        <div id="rules-container" style="display:none">
+            <ul>
+                <li>Construct one word using the letters in the sentence based on the clue</li>
+                <li>You can only use the letters as many times as they appear in the phrase</li>
+                <li>You have 5 guesses</li>
+            </ul>
+        </div>
+        <p id="sentence">Phrase: </p>
+        <p id="clue">Clue: </p>
+        <input type="text" id="user-input" placeholder="Your guess">
+        <p id="remaining-guesses">Guesses left: </p>
+        <button onclick="submitGuess()">Submit</button>
+        <p id="feedback"></p>
+        <div id="guessed-words">
+            <h3>Guessed Words:</h3>
+            <ul id="guesses-list"></ul>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="resultModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <p id="modal-message"></p>
+        <button onclick="revealAnswer()">Reveal Answer</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
 />
 
    <!-- Moment.js -->
