@@ -1,5 +1,6 @@
 let answer = "";
 let attempts = 5;
+const emojis = ["😩", "😢", "🤢", "💔", "⚰️"];
 
 // Ensure DOM content is loaded before running scripts
 window.addEventListener('DOMContentLoaded', () => {
@@ -102,10 +103,11 @@ function submitGuess() {
 } else {
     attempts--;
     if (attempts > 0) {
-        feedbackElement.textContent = `Incorrect. You have ${attempts} attempts left.`;
+        feedbackElement.textContent = `Incorrect guess. You have ${attempts} attempts left.`;
+ document.getElementById('remaining-guesses').textContent = `${emojis.slice(0, 5 - attempts).join(' ')}`;
         console.log('Incorrect guess. Attempts left:', attempts);
     } else {
-        openModal("Thanks for playing! Would you like to know the correct answer?");
+        openModal(" ⚰️ Thanks for playing ⚰️ Would you like to know the correct answer?");
     }
 }
 
