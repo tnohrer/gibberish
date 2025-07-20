@@ -4,25 +4,30 @@ let attempts = 5;
 // Ensure DOM content is loaded before running scripts
 window.addEventListener('DOMContentLoaded', () => {
     // Fetch phrases from the JSON file
-    fetch('phrases.json')
-        .then(response => response.json())
-        .then(data => {
-            const today = new Date().toISOString().split('T')[0];
-            const entry = data.find(item => item.date === today);
-            if (entry) {
-                document.getElementById('sentence').textContent = `Phrase: ${entry.phrase}`;
-                document.getElementById('clue').textContent = `Clue: ${entry.clue}`;
-                answer = entry.answer.toLowerCase();
+      // Get the client's timezone
+   const clientZoneName = moment.tz.guess();
+    //console.log('Client timezone:', clientZoneName);
 
-            } else {
-                document.getElementById('feedback').textContent = "No phrase available for today.";
-                console.log('No phrase available for today');
-            }
-        })
-        .catch(err => {
-            document.getElementById('feedback').textContent = "Error loading phrases.";
-            console.error('Error loading phrases:', err);
-        });
+   // Use the local timezone to get today's date
+   const today = moment().tz(clientZoneName).format('YYYY-MM-DD');
+    //console.log('Today\'s date in local timezone:', today);
+
+   // Fetch the phrase for today's date
+   fetch('phrases.json')
+       .then(response => response.json())
+       .then(data => {
+           const entry = data.find(item => item.date === today);
+           if (entry) {
+               document.getElementById('sentence').textContent = `Phrase: ${entry.phrase}`;
+               document.getElementById('clue').textContent = `Clue: ${entry.clue}`;
+               answer = entry.answer.toLowerCase();
+           } else {
+               document.getElementById('feedback').textContent = "No phrase available for today.";
+           }
+       })
+       .catch(err => {
+           document.getElementById('feedback').textContent = "Error loading phrases.";
+       });
 
     // Event listener for input
     document.getElementById('user-input').addEventListener('input', function () {
@@ -56,7 +61,7 @@ function highlightLetters(userInput) {
     }
 
     if (!foundLetter) {
-        document.getElementById('feedback').textContent = 'Letter not found.';
+        document.getElementById('feedback').textContent = 'Letter not found in phrase.';
         console.log('No letter found in the phrase for input:', userInput);
     } else {
         document.getElementById('feedback').textContent = '';
