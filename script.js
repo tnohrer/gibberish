@@ -75,12 +75,19 @@ function toggleRules() {
 
 function highlightLetters(userInput) {
     const sentenceElem = document.getElementById('sentence');
-    const fullSentence = sentenceElem.textContent.split(': ')[1];
+    const fullSentence = sentenceElem.textContent.split(': ')[1]; 
     let newSentence = 'Phrase: ';
+    const revealedLetters = new Set(userInput);
+
+    // Also add the currently highlighted letters to keep them highlighted
+    document.querySelectorAll('.highlight').forEach((span) => {
+        revealedLetters.add(span.textContent.toLowerCase());
+    });
+
     let foundLetter = false;
 
     for (let char of fullSentence) {
-        if (userInput.includes(char.toLowerCase())) {
+        if (revealedLetters.has(char.toLowerCase())) {
             newSentence += `<span class='highlight'>${char}</span>`;
             foundLetter = true;
         } else {
@@ -97,14 +104,10 @@ function highlightLetters(userInput) {
     sentenceElem.innerHTML = newSentence;
 }
 
-function resetHighlights() {
-    const sentence = document.getElementById('sentence').textContent;
-    document.getElementById('sentence').innerHTML = sentence.replace(/<span class='highlight'>(.*?)<\/span>/g, '$1');
-}
 
 function submitGuess() {
     const userInput = document.getElementById('user-input').value.toLowerCase();
-    resetHighlights();
+    //resetHighlights();
     highlightLetters(userInput.toLowerCase());
     const feedbackElement = document.getElementById('feedback');
     const guessesList = document.getElementById('guesses-list');
